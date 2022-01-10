@@ -1,3 +1,6 @@
+import torch
+import numpy as np
+
 def complex_mult_torch(X, Y):
     """ Computes the complex multiplication in Pytorch when the tensor last dimension is 2: 0 is the real component and 1 the imaginary one"""
     assert X.shape[-1] == 2 and Y.shape[-1] == 2, 'Last dimension must be 2'
