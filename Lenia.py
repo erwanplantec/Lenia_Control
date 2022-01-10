@@ -1,6 +1,7 @@
 
 import torch
 from Spaces import *
+from utils import complex_mult_torch, roll_n
 
 """ =============================================================================================
 Lenia Update Rule Space: 
