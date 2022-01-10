@@ -94,8 +94,7 @@ class Lenia_Controller(nn.Module):
 		c0 = [0 for _ in range(self.sh_kernels * self.hidden_channels * self.state_channels)]
 		c1 = []
 		for i in self.hidden_indexes:
-			c1 = c1 + [i + self.state_channels 
-        	for _ in range(self.sh_kernels)]
+			c1 = c1 + [i for _ in range(self.sh_kernels)]
 
         # 2. hidden -> hidden kernels
 		for i in self.hidden_indexes:
@@ -136,6 +135,5 @@ class Lenia_Controller(nn.Module):
     #===================================================================
 	def reset_state(self):
 		self.state = T.zeros((1, self.SX, self.SY, self.C)).to(self.device)
+	#===================================================================
 
-if __name__ == "__main__":
-	c = Lenia_Controller(1, 1)
