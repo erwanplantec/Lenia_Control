@@ -59,12 +59,12 @@ class Lenia_Controller(nn.Module):
 	def hidden_indexes(self):
 		return [i + self.state_channels for i in 
 		range(self.hidden_channels)]
-		@property
-		def sensory_indexes(self):
-			return list(range(self.state_channels))
-			@property
-			def motor_indexes(self):
-				return [self.C - 1]
+	@property
+	def sensory_indexes(self):
+		return list(range(self.state_channels))
+	@property
+	def motor_indexes(self):
+		return [self.C - 1]
 	#===================================================================
 	def forward(self):
 		self.state = self.lenia_step(self.state)
