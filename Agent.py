@@ -19,8 +19,9 @@ from Controller import Lenia_Controller
 class Lenia_Agent :
 	#===================================================================
 	def __init__(self, state_dims, n_actions, state_channels, hidden_channels,
-		state_hidden_kernels, hidden_hidden_kernels, hidden_motor_kernels,
-		forward_steps = 10, SX = 256, SY = 256, device  = "cpu"):
+		state_state_kernels, state_hidden_kernels, hidden_hidden_kernels, 
+		hidden_motor_kernels, forward_steps = 10, SX = 256, SY = 256, 
+		device  = "cpu"):
 
 		self.state_dims = state_dims
 		self.n_actions = n_actions
@@ -28,6 +29,7 @@ class Lenia_Agent :
 		self.controller = Lenia_Controller(
 				state_channels,
 				hidden_channels,
+				state_state_kernels,
 				state_hidden_kernels,
 				hidden_hidden_kernels,
 				hidden_motor_kernels,

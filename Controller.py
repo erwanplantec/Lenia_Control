@@ -20,7 +20,7 @@ class Lenia_Controller(nn.Module):
 		return default_config
 
 	#===================================================================
-	def __init__(self, state_channels, hidden_channels, 
+	def __init__(self, state_channels, hidden_channels, sens_sens_kernels, 
 		sensory_hidden_kernels = 10, hidden_hidden_kernels = 10, 
 		hidden_motor_kernels = 10, device = "cpu", SX = 256,
 		SY = 256):
@@ -29,6 +29,7 @@ class Lenia_Controller(nn.Module):
 
 		self.state_channels = state_channels
 		self.hidden_channels = hidden_channels
+		self.ss_kernels = sens_sens_kernels
 		self.sh_kernels = sensory_hidden_kernels
 		self.hh_kernels = hidden_hidden_kernels
 		self.hm_kernels = hidden_motor_kernels
@@ -42,8 +43,10 @@ class Lenia_Controller(nn.Module):
 		self.config.C = self.C
 
 		#Commpute total number of kernels
+		# sensory -> sensory
+		k = (state_channels ** 2) * self.ss_kernels
 		# sensory -> hidden
-		k = state_channels * hidden_channels * self.sh_kernels
+		k += state_channels * hidden_channels * self.sh_kernels
 		# hidden -> hidden
 		k += (hidden_channels ** 2) * self.hh_kernels
 		# hidden -> motor
@@ -110,6 +113,12 @@ class Lenia_Controller(nn.Module):
 
 			self.update_rule_parameters["c0"] = T.tensor(c0)
 			self.update_rule_parameters["c1"] = T.tensor(c1)
+		
+		# 4. sensory -> sensory kernels
+		for i in range(self.sensory_indexes):
+			for j in range(self.sensory_indexes):
+				c0 += [i for _ in range(self.ss_kernels)]
+				c1 += [j for _ in range(self.ss_kernels)]
 
         # initialize Lenia CA with update rule parameters
 		if self.config.version == "pytorch_fft":
