@@ -115,8 +115,8 @@ class Lenia_Controller(nn.Module):
 			self.update_rule_parameters["c1"] = T.tensor(c1)
 		
 		# 4. sensory -> sensory kernels
-		for i in range(self.sensory_indexes):
-			for j in range(self.sensory_indexes):
+		for i in self.sensory_indexes:
+			for j in self.sensory_indexes:
 				c0 += [i for _ in range(self.ss_kernels)]
 				c1 += [j for _ in range(self.ss_kernels)]
 
