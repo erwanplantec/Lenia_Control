@@ -111,14 +111,14 @@ class Lenia_Controller(nn.Module):
 		for i in self.hidden_indexes:
 			c0 += [i for _ in range(self.hm_kernels)]
 
-			self.update_rule_parameters["c0"] = T.tensor(c0)
-			self.update_rule_parameters["c1"] = T.tensor(c1)
-		
 		# 4. sensory -> sensory kernels
 		for i in self.sensory_indexes:
 			for j in self.sensory_indexes:
 				c0 += [i for _ in range(self.ss_kernels)]
 				c1 += [j for _ in range(self.ss_kernels)]
+
+		self.update_rule_parameters["c0"] = T.tensor(c0)
+		self.update_rule_parameters["c1"] = T.tensor(c1)
 
         # initialize Lenia CA with update rule parameters
 		if self.config.version == "pytorch_fft":
